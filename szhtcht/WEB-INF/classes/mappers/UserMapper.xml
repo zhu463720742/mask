@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.szhtc.mapper.UserMapper">
+<select id="selectnick" resultType="cn.szhtc.pojo.User">
+  	select 
+  	id,username,password,nickname,
+			phone,email,wechat
+	from t_user
+ where
+	 nickname=#{nickname};
+			  </select>
+
+<update id="updatepwd" ></update>
+<!-- <insert id="register"
+		parameterType="cn.szhtc.bean.User"
+		useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO t_user (
+			username, password, phone
+		) VALUES (
+			#{username}, 
+			#{password},
+			#{phone}
+		) -->
+	<!-- 添加用户信息 -->
+	<!-- void  insert(User user); -->
+	<insert id="insert" parameterType="cn.szhtc.pojo.User">
+		insert into t_user (
+			username,password
+			<!-- ,email,wechat, -->
+		<!-- 	created_user,created_time,
+			modified_user,modified_time -->
+		)  values(
+			#{username},#{password}
+			<!-- #{email},#{wechat}, -->
+		<!-- 	#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime} -->
+		);
+
+	</insert>
+	<!-- 通过用户名查询 -->
+	<!-- User getUserByUsername(String username); -->
+	<select id="getUserByUsername" 
+		resultType="cn.szhtc.pojo.User">
+		
+		select 
+			id,username,password,
+			phone,email,wechat,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		from 
+			t_user
+		where 
+			username=#{username};
+	</select>
+	<!-- <select id="getUserId" 
+	 resulType="cn.szhtc.bean.User" >
+		select
+		 id,username,password,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		 from  t_user
+			 where
+			   id=#{id};
+			   </select> -->
+	<!-- 根据email查询 -->
+	<!-- Integer getCountByEmail(String email); -->
+	<select id="getCountByEmail" 
+		resultType="java.lang.Integer">
+		select 
+			count(email)
+		from 
+			t_user
+		where 
+			email=#{email}
+		
+	</select>
+	<select id="selectByPrimaryKey"  parameterType="java.lang.Integer" resultType="cn.szhtc.pojo.User">
+    select 
+   	id,username,password,
+			phone,email,wechat,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+    from t_user
+    where
+     id = #{id}
+  </select>
+	
+	<!-- 根据phone查询 -->
+	<!-- Integer getCountByPhone(String Phone); -->
+	<select id="getCountByPhone" 
+		resultType="java.lang.Integer">
+		select 
+			count(phone)
+		from 
+			t_user
+		where 
+			phone=#{phone}
+		
+	</select>
+	<insert id="phregister"  parameterType="cn.szhtc.pojo.User">
+		insert into t_user (
+			phone
+		)  values(
+			#{phone}
+		);
+	
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

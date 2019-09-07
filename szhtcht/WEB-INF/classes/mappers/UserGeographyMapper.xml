@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.szhtc.mapper.UserGeographyMapper" >
+  <resultMap id="BaseResultMap" type="cn.szhtc.pojo.UserGeography" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phoneUuid" property="phoneuuid" jdbcType="VARCHAR" />
+    <result column="userSex" property="usersex" jdbcType="VARCHAR" />
+    <result column="userAge" property="userage" jdbcType="VARCHAR" />
+    <result column="userGeog" property="usergeog" jdbcType="VARCHAR" />
+    <result column="userNick" property="usernick" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="valid" property="valid" jdbcType="INTEGER" />
+    <result column="createdTime" property="createdtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectuuid" resultType="cn.szhtc.pojo.UserGeography">
+  	select * from user_geography where phoneUuid = #{phoneuuid,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateug" parameterType="cn.szhtc.pojo.UserGeography">
+  	update user_geography
+    set phoneUuid = #{phoneuuid,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=VARCHAR},
+      userGeog = #{usergeog,jdbcType=VARCHAR},
+      userNick = #{usernick,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      createdTime = #{createdtime,jdbcType=TIMESTAMP}
+    where phoneUuid = #{phoneuuid,jdbcType=INTEGER}
+  
+  </update>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, phoneUuid, userSex, userAge, userGeog, userNick, phone, valid, createdTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.szhtc.pojo.UserGeographyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_geography
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_geography
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_geography
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.szhtc.pojo.UserGeographyExample" >
+    delete from user_geography
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.szhtc.pojo.UserGeography" >
+    insert into user_geography (id, phoneUuid, userSex, 
+      userAge, userGeog, userNick, 
+      phone, valid, createdTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{phoneuuid,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, 
+      #{userage,jdbcType=VARCHAR}, #{usergeog,jdbcType=VARCHAR}, #{usernick,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{createdtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.szhtc.pojo.UserGeography" >
+    insert into user_geography
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phoneuuid != null" >
+        phoneUuid,
+      </if>
+      <if test="usersex != null" >
+        userSex,
+      </if>
+      <if test="userage != null" >
+        userAge,
+      </if>
+      <if test="usergeog != null" >
+        userGeog,
+      </if>
+      <if test="usernick != null" >
+        userNick,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="valid != null" >
+        valid,
+      </if>
+      <if test="createdtime != null" >
+        createdTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phoneuuid != null" >
+        #{phoneuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="usergeog != null" >
+        #{usergeog,jdbcType=VARCHAR},
+      </if>
+      <if test="usernick != null" >
+        #{usernick,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.szhtc.pojo.UserGeographyExample" resultType="java.lang.Integer" >
+    select count(*) from user_geography
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_geography
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneuuid != null" >
+        phoneUuid = #{record.phoneuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usersex != null" >
+        userSex = #{record.usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userage != null" >
+        userAge = #{record.userage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usergeog != null" >
+        userGeog = #{record.usergeog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usernick != null" >
+        userNick = #{record.usernick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valid != null" >
+        valid = #{record.valid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdtime != null" >
+        createdTime = #{record.createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_geography
+    set id = #{record.id,jdbcType=INTEGER},
+      phoneUuid = #{record.phoneuuid,jdbcType=VARCHAR},
+      userSex = #{record.usersex,jdbcType=VARCHAR},
+      userAge = #{record.userage,jdbcType=VARCHAR},
+      userGeog = #{record.usergeog,jdbcType=VARCHAR},
+      userNick = #{record.usernick,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      valid = #{record.valid,jdbcType=INTEGER},
+      createdTime = #{record.createdtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.szhtc.pojo.UserGeography" >
+    update user_geography
+    <set >
+      <if test="phoneuuid != null" >
+        phoneUuid = #{phoneuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        userSex = #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        userAge = #{userage,jdbcType=VARCHAR},
+      </if>
+      <if test="usergeog != null" >
+        userGeog = #{usergeog,jdbcType=VARCHAR},
+      </if>
+      <if test="usernick != null" >
+        userNick = #{usernick,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null" >
+        createdTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.szhtc.pojo.UserGeography" >
+    update user_geography
+    set phoneUuid = #{phoneuuid,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=VARCHAR},
+      userGeog = #{usergeog,jdbcType=VARCHAR},
+      userNick = #{usernick,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      createdTime = #{createdtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

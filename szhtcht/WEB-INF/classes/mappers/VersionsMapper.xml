@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.szhtc.mapper.VersionsMapper" >
+  <resultMap id="BaseResultMap" type="cn.szhtc.pojo.Versions" >
+    <id column="VersionCode" property="versioncode" jdbcType="INTEGER" />
+    <result column="VersionName" property="versionname" jdbcType="VARCHAR" />
+    <result column="Versionsize" property="versionsize" jdbcType="VARCHAR" />
+    <result column="Versionstattwo" property="versionstattwo" jdbcType="VARCHAR" />
+    <result column="Versionstateone" property="versionstateone" jdbcType="VARCHAR" />
+    <result column="DownLoadUrl" property="downloadurl" jdbcType="VARCHAR" />
+    <result column="Versionstatethree" property="versionstatethree" jdbcType="VARCHAR" />
+  </resultMap>
+  
+<select id="Selectmaxid"  resultType="int">
+  	select  max(VersionCode)  from versions;
+ </select>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VersionCode, VersionName, Versionsize, Versionstattwo, Versionstateone, DownLoadUrl, 
+    Versionstatethree
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.szhtc.pojo.VersionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from versions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from versions
+    where VersionCode = #{versioncode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from versions
+    where VersionCode = #{versioncode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.szhtc.pojo.VersionsExample" >
+    delete from versions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.szhtc.pojo.Versions" >
+    insert into versions (VersionCode, VersionName, Versionsize, 
+      Versionstattwo, Versionstateone, DownLoadUrl, 
+      Versionstatethree)
+    values (#{versioncode,jdbcType=INTEGER}, #{versionname,jdbcType=VARCHAR}, #{versionsize,jdbcType=VARCHAR}, 
+      #{versionstattwo,jdbcType=VARCHAR}, #{versionstateone,jdbcType=VARCHAR}, #{downloadurl,jdbcType=VARCHAR}, 
+      #{versionstatethree,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.szhtc.pojo.Versions" >
+    insert into versions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="versioncode != null" >
+        VersionCode,
+      </if>
+      <if test="versionname != null" >
+        VersionName,
+      </if>
+      <if test="versionsize != null" >
+        Versionsize,
+      </if>
+      <if test="versionstattwo != null" >
+        Versionstattwo,
+      </if>
+      <if test="versionstateone != null" >
+        Versionstateone,
+      </if>
+      <if test="downloadurl != null" >
+        DownLoadUrl,
+      </if>
+      <if test="versionstatethree != null" >
+        Versionstatethree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="versioncode != null" >
+        #{versioncode,jdbcType=INTEGER},
+      </if>
+      <if test="versionname != null" >
+        #{versionname,jdbcType=VARCHAR},
+      </if>
+      <if test="versionsize != null" >
+        #{versionsize,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstattwo != null" >
+        #{versionstattwo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstateone != null" >
+        #{versionstateone,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadurl != null" >
+        #{downloadurl,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstatethree != null" >
+        #{versionstatethree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.szhtc.pojo.VersionsExample" resultType="java.lang.Integer" >
+    select count(*) from versions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update versions
+    <set >
+      <if test="record.versioncode != null" >
+        VersionCode = #{record.versioncode,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionname != null" >
+        VersionName = #{record.versionname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionsize != null" >
+        Versionsize = #{record.versionsize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionstattwo != null" >
+        Versionstattwo = #{record.versionstattwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionstateone != null" >
+        Versionstateone = #{record.versionstateone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadurl != null" >
+        DownLoadUrl = #{record.downloadurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionstatethree != null" >
+        Versionstatethree = #{record.versionstatethree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update versions
+    set VersionCode = #{record.versioncode,jdbcType=INTEGER},
+      VersionName = #{record.versionname,jdbcType=VARCHAR},
+      Versionsize = #{record.versionsize,jdbcType=VARCHAR},
+      Versionstattwo = #{record.versionstattwo,jdbcType=VARCHAR},
+      Versionstateone = #{record.versionstateone,jdbcType=VARCHAR},
+      DownLoadUrl = #{record.downloadurl,jdbcType=VARCHAR},
+      Versionstatethree = #{record.versionstatethree,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.szhtc.pojo.Versions" >
+    update versions
+    <set >
+      <if test="versionname != null" >
+        VersionName = #{versionname,jdbcType=VARCHAR},
+      </if>
+      <if test="versionsize != null" >
+        Versionsize = #{versionsize,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstattwo != null" >
+        Versionstattwo = #{versionstattwo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstateone != null" >
+        Versionstateone = #{versionstateone,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadurl != null" >
+        DownLoadUrl = #{downloadurl,jdbcType=VARCHAR},
+      </if>
+      <if test="versionstatethree != null" >
+        Versionstatethree = #{versionstatethree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VersionCode = #{versioncode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.szhtc.pojo.Versions" >
+    update versions
+    set VersionName = #{versionname,jdbcType=VARCHAR},
+      Versionsize = #{versionsize,jdbcType=VARCHAR},
+      Versionstattwo = #{versionstattwo,jdbcType=VARCHAR},
+      Versionstateone = #{versionstateone,jdbcType=VARCHAR},
+      DownLoadUrl = #{downloadurl,jdbcType=VARCHAR},
+      Versionstatethree = #{versionstatethree,jdbcType=VARCHAR}
+    where VersionCode = #{versioncode,jdbcType=INTEGER}
+  </update>
+</mapper>
